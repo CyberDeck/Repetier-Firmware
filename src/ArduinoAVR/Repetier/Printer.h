@@ -442,6 +442,9 @@ public:
 #if CASE_LIGHTS_PIN > -1
   static fast8_t lightOn;
 #endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+  static uint8_t lcd_backlight[3]; // RGB value of the backlight LED
+#endif
   static float memoryX;
   static float memoryY;
   static float memoryZ;

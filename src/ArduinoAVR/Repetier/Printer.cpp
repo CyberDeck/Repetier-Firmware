@@ -203,6 +203,9 @@ fast8_t Printer::multiZHomeFlags; // 1 = move Z0, 2 = move Z1
 #if CASE_LIGHTS_PIN > -1
 fast8_t Printer::lightOn;
 #endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+uint8_t Printer::lcd_backlight[3] = {0xFF, 0xFF, 0xFF};
+#endif
 #ifdef DEBUG_PRINT
 int debugWaitLoop = 0;
 #endif

@@ -134,6 +134,9 @@ have problems with other modules using the eeprom */
 #define EPR_PARK_Z 1064
 #define EPR_HEATED_BED_GAIN 1068
 #define EPR_HEATED_BED_BIAS 1072
+#define EPR_LCD_BACKLIGHT_R 1076
+#define EPR_LCD_BACKLIGHT_G 1077
+#define EPR_LCD_BACKLIGHT_B 1078
 
 #define EPR_RESCUE_START 4096 - 128
 #define EPR_RESCUE_MODE EPR_RESCUE_START

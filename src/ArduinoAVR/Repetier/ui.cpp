@@ -1726,6 +1726,14 @@ void UIDisplay::parse(const char *txt, bool ram)
             else if (c2 == 'l')
                 addStringOnOff((Printer::isAutolevelActive())); // Autolevel on/off
 #endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+            else if (c2 == 'r')
+              addInt(Printer::lcd_backlight[0], 3);
+            else if (c2 == 'g')
+              addInt(Printer::lcd_backlight[1], 3);
+            else if (c2 == 'b')
+              addInt(Printer::lcd_backlight[2], 3);
+#endif
             break;
         case 'o':
             if (c2 == 's')
@@ -3811,6 +3819,13 @@ bool UIDisplay::nextPreviousAction(int16_t next, bool allowMoves)
 #if DISTORTION_CORRECTION
     case UI_ACTION_MEASURE_DISTORTION2:
         popMenu(true);
+        break;
+#endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+    case UI_ACTION_LCD_BACKLIGHT_R:
+    case UI_ACTION_LCD_BACKLIGHT_G:
+    case UI_ACTION_LCD_BACKLIGHT_B:
+        INCREMENT_MIN_MAX(Printer::lcd_backlight[action - UI_ACTION_LCD_BACKLIGHT_R], 1, 0, 255);
         break;
 #endif
     default:

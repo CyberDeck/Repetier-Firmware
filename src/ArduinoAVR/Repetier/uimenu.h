@@ -1186,6 +1186,15 @@ UI_MENU_CHANGEACTION_T(ui_menu_feedrate_homez, UI_TEXT_FEED_HOME_Z_DELTA_ID, UI_
 UI_MENU(ui_menu_feedrate, UI_MENU_FEEDRATE, 2 + UI_MENU_BACKCNT)
 #endif
 
+// **** LCD Backlight
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+UI_MENU_CHANGEACTION_T(ui_menu_lcd_backlight_r,  UI_TEXT_LCD_BACKLIGHT_R_ID,  UI_ACTION_LCD_BACKLIGHT_R)
+UI_MENU_CHANGEACTION_T(ui_menu_lcd_backlight_g,  UI_TEXT_LCD_BACKLIGHT_G_ID,  UI_ACTION_LCD_BACKLIGHT_G)
+UI_MENU_CHANGEACTION_T(ui_menu_lcd_backlight_b,  UI_TEXT_LCD_BACKLIGHT_B_ID,  UI_ACTION_LCD_BACKLIGHT_B)
+#define UI_MENU_LCD_BACKLIGHT {UI_MENU_ADDCONDBACK &ui_menu_lcd_backlight_r,&ui_menu_lcd_backlight_g,&ui_menu_lcd_backlight_b}
+UI_MENU(ui_menu_lcd_backlight, UI_MENU_LCD_BACKLIGHT, 3 + UI_MENU_BACKCNT)
+#endif
+
 // **** General configuration settings
 
 UI_MENU_ACTION2_T(ui_menu_stepper2, UI_ACTION_STEPPER_INACTIVE, UI_TEXT_STEPPER_INACTIVE2A_ID, UI_TEXT_STEPPER_INACTIVE2B_ID)
@@ -1336,8 +1345,17 @@ UI_MENU_SUBMENU_T(ui_menu_conf_delta, UI_TEXT_ZCALIB_ID, ui_menu_delta)
 #define UI_MENU_DELTA_COND
 #define UI_MENU_DELTA_CNT 0
 #endif
-#define UI_MENU_CONFIGURATION {UI_MENU_ADDCONDBACK LANGMENU_ENTRY &ui_menu_general_baud,&ui_menu_general_stepper_inactive,&ui_menu_general_max_inactive  ,&ui_menu_conf_accel,&ui_menu_conf_feed UI_MENU_EXTCONF_COND UI_MENU_BEDCONF_COND UI_MENU_EEPROM_COND UI_MENU_DELTA_COND UI_MENU_SL_COND}
-UI_MENU(ui_menu_configuration, UI_MENU_CONFIGURATION, UI_MENU_BACKCNT + LANGMENU_COUNT + UI_MENU_EEPROM_CNT + UI_MENU_EXTCONF_CNT + UI_MENU_BEDCONF_CNT + UI_MENU_DELTA_CNT + UI_MENU_SL_CNT + 5)
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+#define UI_MENU_LCD_BACKLIGHT_COND ,&ui_menu_conf_lcd_backlight
+UI_MENU_SUBMENU_T(ui_menu_conf_lcd_backlight, UI_TEXT_LCD_BACKLIGHT_ID, ui_menu_lcd_backlight)
+#define UI_MENU_LCD_BACKLIGHT_CNT 1
+#else
+#define UI_MENU_LCD_BACKLIGHT_COND
+#define UI_MENU_LCD_BACKLIGHT_CNT 0
+#endif
+
+#define UI_MENU_CONFIGURATION {UI_MENU_ADDCONDBACK LANGMENU_ENTRY &ui_menu_general_baud,&ui_menu_general_stepper_inactive,&ui_menu_general_max_inactive  ,&ui_menu_conf_accel,&ui_menu_conf_feed UI_MENU_EXTCONF_COND UI_MENU_BEDCONF_COND UI_MENU_LCD_BACKLIGHT_COND UI_MENU_EEPROM_COND UI_MENU_DELTA_COND UI_MENU_SL_COND}
+UI_MENU(ui_menu_configuration, UI_MENU_CONFIGURATION, UI_MENU_BACKCNT + LANGMENU_COUNT + UI_MENU_EEPROM_CNT + UI_MENU_EXTCONF_CNT + UI_MENU_BEDCONF_CNT + UI_MENU_DELTA_CNT + UI_MENU_SL_CNT + UI_MENU_LCD_BACKLIGHT_CNT + 5)
 
 // **** Preheat menu ****
 

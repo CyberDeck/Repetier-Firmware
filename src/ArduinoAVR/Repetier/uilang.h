@@ -98,7 +98,7 @@
 #define LANGUAGE_RU_ID 12
 
 #define NUM_LANGUAGES_KNOWN 13
-#define NUM_TRANSLATED_WORDS 314
+#define NUM_TRANSLATED_WORDS 318
 
 // For selectable translations we refer to each text by a id which gets
 // defined here. The list starts at 0 and defines the position in the
@@ -421,6 +421,10 @@
 #define UI_TEXT_RESET_EEPROM_ID 311
 #define UI_TEXT_EEPROM_RESETEDA_ID 312
 #define UI_TEXT_EEPROM_RESETEDB_ID 313
+#define UI_TEXT_LCD_BACKLIGHT_ID 314
+#define UI_TEXT_LCD_BACKLIGHT_R_ID 315
+#define UI_TEXT_LCD_BACKLIGHT_G_ID 316
+#define UI_TEXT_LCD_BACKLIGHT_B_ID 317
 
 // Universal definitions
 
@@ -766,6 +770,10 @@
 #define UI_TEXT_MAINPAGE6_4_L_EN "Mul: %om%%%    Las:%op W"
 #define UI_TEXT_MAINPAGE6_4_C_EN "Mul: %om%%%    Spi:%opRPM "
 #define UI_TEXT_JAMCONTROL_EN "%ej Jam Control"
+#define UI_TEXT_LCD_BACKLIGHT_EN "LCD Backlight"
+#define UI_TEXT_LCD_BACKLIGHT_R_EN "Red:   %lr"
+#define UI_TEXT_LCD_BACKLIGHT_G_EN "Green: %lg"
+#define UI_TEXT_LCD_BACKLIGHT_B_EN "Blue:  %lb"
 
 // *************** German translation ****************
 

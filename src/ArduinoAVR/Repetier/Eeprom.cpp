@@ -352,6 +352,11 @@ void EEPROM::restoreEEPROMSettingsFromConfiguration() {
 #endif
   Extruder::initHeatedBed();
   Com::printInfoFLN(Com::tEPRConfigResetDefaults);
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+  Printer::lcd_backlight[0] = 0xFF;
+  Printer::lcd_backlight[1] = 0xFF;
+  Printer::lcd_backlight[2] = 0xFF;
+#endif
 #else
   Com::printErrorFLN(Com::tNoEEPROMSupport);
 #endif
@@ -508,6 +513,11 @@ void EEPROM::storeDataIntoEEPROM(uint8_t corrupted) {
   }
 #if MIXING_EXTRUDER
   storeMixingRatios(false);
+#endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_R, Printer::lcd_backlight[0]);
+  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_G, Printer::lcd_backlight[1]);
+  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_B, Printer::lcd_backlight[2]);
 #endif
   if (corrupted) {
     HAL::eprSetInt32(EPR_PRINTING_TIME, 0);
@@ -904,6 +914,11 @@ void EEPROM::readDataFromEEPROM(bool includeExtruder) {
   Printer::zBedOffset = HAL::eprGetFloat(EPR_Z_PROBE_Z_OFFSET);
 #if UI_DISPLAY_TYPE != NO_DISPLAY
   Com::selectLanguage(HAL::eprGetByte(EPR_SELECTED_LANGUAGE));
+#endif
+#if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
+  Printer::lcd_backlight[0] = HAL::eprGetByte(EPR_LCD_BACKLIGHT_R);
+  Printer::lcd_backlight[1] = HAL::eprGetByte(EPR_LCD_BACKLIGHT_G);
+  Printer::lcd_backlight[2] = HAL::eprGetByte(EPR_LCD_BACKLIGHT_B);
 #endif
   Printer::updateDerivedParameter();
   Extruder::initHeatedBed();

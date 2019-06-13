@@ -1700,6 +1700,7 @@ void uiCheckSlowKeys(uint16_t &action) {}
 #define UI_COLS (UI_LCD_WIDTH/UI_FONT_SMALL_WIDTH)
 #define UI_ROWS (UI_LCD_HEIGHT/UI_FONT_HEIGHT)
 #define UI_DISPLAY_CHARSET 3
+#define FEATURE_LCD_BACKLIGHT_RGB
 
 #define BEEPER_TYPE 1
 
