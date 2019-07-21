@@ -912,6 +912,7 @@ public:
 #if UI_BED_COATING
   void menuAdjustHeight(const UIMenu *men, float offset);
 #endif
+  static void updateDerived();
   char cwd[SD_MAX_FOLDER_DEPTH * LONG_FILENAME_LENGTH + 2];
   uint8_t folderLevel;
 };

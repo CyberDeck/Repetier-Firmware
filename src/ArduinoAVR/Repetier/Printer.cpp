@@ -576,6 +576,7 @@ void Printer::updateDerivedParameter() {
     distortion.updateDerived();
 #endif // DISTORTION_CORRECTION
     Printer::updateAdvanceFlags();
+    UIDisplay::updateDerived();
     EVENT_UPDATE_DERIVED;
 }
 #if AUTOMATIC_POWERUP

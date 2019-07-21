@@ -515,9 +515,9 @@ void EEPROM::storeDataIntoEEPROM(uint8_t corrupted) {
   storeMixingRatios(false);
 #endif
 #if (FEATURE_CONTROLLER == CONTROLLER_FYSETC_MINI_12864_V21)
-  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_R, Printer::lcd_backlight[0]);
-  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_G, Printer::lcd_backlight[1]);
-  HAL::eprSetByte(o + EPR_LCD_BACKLIGHT_B, Printer::lcd_backlight[2]);
+  HAL::eprSetByte(EPR_LCD_BACKLIGHT_R, Printer::lcd_backlight[0]);
+  HAL::eprSetByte(EPR_LCD_BACKLIGHT_G, Printer::lcd_backlight[1]);
+  HAL::eprSetByte(EPR_LCD_BACKLIGHT_B, Printer::lcd_backlight[2]);
 #endif
   if (corrupted) {
     HAL::eprSetInt32(EPR_PRINTING_TIME, 0);

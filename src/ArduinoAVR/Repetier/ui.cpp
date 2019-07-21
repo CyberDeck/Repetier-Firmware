@@ -53,6 +53,17 @@ uint16_t servoPosition = 1500;
 #endif
 #endif
 
+#ifdef FEATURE_LCD_BACKLIGHT_RGB
+#include <Adafruit_NeoPixel.h>
+static Adafruit_NeoPixel drv_lcd_backlight = Adafruit_NeoPixel(3, UI_DISPLAY_LEDS_PIN, NEO_RGB);
+void updateLCDBacklight() {
+    drv_lcd_backlight.setPixelColor(0, drv_lcd_backlight.Color(Printer::lcd_backlight[0], Printer::lcd_backlight[1], Printer::lcd_backlight[2]));
+    drv_lcd_backlight.setPixelColor(1, drv_lcd_backlight.Color(Printer::lcd_backlight[0], Printer::lcd_backlight[1], Printer::lcd_backlight[2]));
+    drv_lcd_backlight.setPixelColor(2, drv_lcd_backlight.Color(Printer::lcd_backlight[0], Printer::lcd_backlight[1], Printer::lcd_backlight[2]));
+    drv_lcd_backlight.show();
+}
+#endif
+
 #if BEEPER_TYPE == 2 && defined(UI_HAS_I2C_KEYS) && UI_I2C_KEY_ADDRESS != BEEPER_ADDRESS
 #error Beeper address and i2c key address must be identical
 #else
@@ -1019,6 +1030,9 @@ void initializeLCD()
 #ifdef LCD_CONTRAST
     u8g_SetContrast(&u8g, LCD_CONTRAST);
 #endif
+#ifdef FEATURE_LCD_BACKLIGHT_RGB
+    updateLCDBacklight();
+#endif
 #ifdef UI_ROTATE_180
     u8g_SetRot180(&u8g);
 #endif
@@ -1052,6 +1066,13 @@ void initializeLCD()
 
 UIDisplay::UIDisplay()
 {
+}
+
+void UIDisplay::updateDerived()
+{
+#ifdef FEATURE_LCD_BACKLIGHT_RGB
+    updateLCDBacklight();
+#endif
 }
 
 void UIDisplay::initialize()
@@ -1097,6 +1118,10 @@ void UIDisplay::initialize()
     UI_STATUS_F(Com::translatedF(UI_TEXT_PRINTER_READY_ID));
 #if UI_DISPLAY_TYPE != NO_DISPLAY
     initializeLCD();
+#ifdef FEATURE_LCD_BACKLIGHT_RGB
+    drv_lcd_backlight.begin();
+    updateLCDBacklight();
+#endif
 #if defined(USER_KEY1_PIN) && USER_KEY1_PIN > -1
     UI_KEYS_INIT_BUTTON_LOW(USER_KEY1_PIN);
 #endif
@@ -3826,6 +3851,7 @@ bool UIDisplay::nextPreviousAction(int16_t next, bool allowMoves)
     case UI_ACTION_LCD_BACKLIGHT_G:
     case UI_ACTION_LCD_BACKLIGHT_B:
         INCREMENT_MIN_MAX(Printer::lcd_backlight[action - UI_ACTION_LCD_BACKLIGHT_R], 1, 0, 255);
+        updateLCDBacklight();
         break;
 #endif
     default:

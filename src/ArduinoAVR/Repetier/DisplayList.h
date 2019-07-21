@@ -1706,6 +1706,7 @@ void uiCheckSlowKeys(uint16_t &action) {}
 
 #if MOTHERBOARD == 190  // Fysetc F6
 #define BEEPER_PIN             37
+#define UI_DISPLAY_LEDS_PIN    25
 #define UI_DISPLAY_RESET_PIN   23
 #define UI_DISPLAY_RS_PIN      17
 #define UI_DISPLAY_RW_PIN      -1
