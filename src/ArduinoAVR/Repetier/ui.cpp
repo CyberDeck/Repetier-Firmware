@@ -2818,6 +2818,17 @@ void UIDisplay::refreshPage()
 #endif
             } // not printing
         }     // menu level 0 page 0
+#ifdef DRV_TMC2130
+        else if (menuLevel == 0 && menuPos[0] == UI_NUM_PAGES-1)
+        { // Main menu with TMC2130 infos
+            u8g_DrawHLine(&u8g, 0, 32, u8g_GetWidth(&u8g));
+            if (u8g_IsBBXIntersection(&u8g, 54, 0, 1, 55))
+            {
+                u8g_draw_vline(&u8g, 112, 0, 32);
+                u8g_draw_vline(&u8g, 62, 0, 54);
+            }
+        }
+#endif
         else
         {
 #endif //  UI_DISPLAY_TYPE == DISPLAY_U8G
